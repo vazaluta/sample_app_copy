@@ -6,6 +6,9 @@ Minitest::Reporters.use!
 
 class ActiveSupport::TestCase
   fixtures :all
+  
+  
+  
   include ApplicationHelper
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
@@ -14,4 +17,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  
+  
+  
+  # テストユーザーがログイン中の場合にtrueを返す
+  def is_logged_in?
+    !session[:user_id].nil?
+  end
 end

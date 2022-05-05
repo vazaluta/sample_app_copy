@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       # Success (valid params)
+      log_in @user
       # GET "/users/#{@user.id}"  <= 結論
       flash[:success] = "Welcome to the Sample App!"    # hashのように使えるメソッド、一時的に表示
       redirect_to @user

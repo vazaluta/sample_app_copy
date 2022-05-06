@@ -6,13 +6,17 @@ class SessionsController < ApplicationController
   
   # POST /login
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
+    @user = User.find_by(email: params[:session][:email].downcase)
       # user に入力されたemailと一致するuser情報を格納する
       # .downcase=> emailの大文字小文字で別のアドレスとして扱わないように
-    if user&.authenticate(params[:session][:password]) 
+    if @user&.authenticate(params[:session][:password]) 
       # object を返せばtrueを返す
-      log_in(user)
-      redirect_to(user) 
+      
+      # sessions_helperより
+      log_in(@user)
+      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)   #　三項演算子
+      
+      redirect_to(@user) 
       #        => user_url(user)
     else
       # alert-danger => 赤色のフラッシュ
@@ -26,7 +30,7 @@ class SessionsController < ApplicationController
   
   # DELETE /logout
   def destroy
-    log_out
+    log_out if logged_in? #sessions_helperより
     redirect_to root_url
   end
 end

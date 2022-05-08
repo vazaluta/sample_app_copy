@@ -9,9 +9,12 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true)
                     
-  has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
-  
+  has_secure_password                   # DBにレコードが生成された時だけ存在性のvalidationをおこなう
+  validates :password, presence: true,  # 値がnilや空文字でないことを確認
+                         length: { minimum: 6 },
+                      allow_nil: true   # 対象がnilの場合はvalidationをskip
+                                        # =>値が空文字(" "*6など)の場合はvalidationにひっかかる
+
   # 渡された文字列のハッシュ値を返す Bcryptの文法
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

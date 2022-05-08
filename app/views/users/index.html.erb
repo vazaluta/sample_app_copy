@@ -1,0 +1,14 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%=  will_paginate %>
+
+<ul class="users">
+<!-- Userのcollectionを渡すと、<li>を列挙してくれる -->
+<!-- index actiionにより指定のページのユーザー情報が配列で代入されてる -->
+<!-- User classの変数に対してrenderを実行するとdefaultで_user.html.erbを探しに行く -->
+  <%= render @users %>
+</ul>
+</ul>
+
+<%= will_paginate %>

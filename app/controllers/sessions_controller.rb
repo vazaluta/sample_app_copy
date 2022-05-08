@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   def new
     # x @session = Session.new
     # o scope: :session + url: login_path
+    # debugger
   end
   
   # POST /login
@@ -11,13 +12,10 @@ class SessionsController < ApplicationController
       # .downcase=> emailの大文字小文字で別のアドレスとして扱わないように
     if @user&.authenticate(params[:session][:password]) 
       # object を返せばtrueを返す
-      
-      # sessions_helperより
-      log_in(@user)
+      log_in(@user)   # sessions_helperより
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)   #　三項演算子
-      
-      redirect_to(@user) 
-      #        => user_url(user)
+      redirect_back_or(@user)
+      #        => forwarding_url or user_url(user)
     else
       # alert-danger => 赤色のフラッシュ
       flash.now[:danger] = 'Invalid email/password combination' 

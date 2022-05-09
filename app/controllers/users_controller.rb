@@ -26,14 +26,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       # Success (valid params)
-      log_in @user
-      # GET "/users/#{@user.id}"  <= 結論
-      flash[:success] = "Welcome to the Sample App!"    # hashのように使えるメソッド、一時的に表示
-      redirect_to @user
-      # redirect_to user_path(@user)
-      # => redirect_to user_path(@user.id)
-      # => redirect_to user_path(1)
-      # => /user/1  
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
       render 'new'
       #Failure

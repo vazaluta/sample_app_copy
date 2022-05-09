@@ -12,10 +12,17 @@ class SessionsController < ApplicationController
       # .downcase=> emailの大文字小文字で別のアドレスとして扱わないように
     if @user&.authenticate(params[:session][:password]) 
       # object を返せばtrueを返す
-      log_in(@user)   # sessions_helperより
-      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)   #　三項演算子
-      redirect_back_or(@user)
+      if @user.activated?
+        log_in(@user)   # sessions_helperより
+        params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)   #　三項演算子
+        redirect_back_or(@user)
       #        => forwarding_url or user_url(user)
+      else
+        message  = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:warning] = message
+        redirect_to root_url
+      end
     else
       # alert-danger => 赤色のフラッシュ
       flash.now[:danger] = 'Invalid email/password combination' 

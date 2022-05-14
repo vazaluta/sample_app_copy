@@ -8,6 +8,13 @@ User.create!(name:  "Example User",   # 例外処理"!"によって、validation
              admin: true,      # 権限の付与
              activated: true,
              activated_at: Time.zone.now)
+             
+User.create!(name:  "not_activated_user",   # 例外処理"!"によって、validationで１００回引っかかるのを防ぐ
+             email: "not_activated_user@railstutorial.org",
+             password:              "foobar",
+             password_confirmation: "foobar",
+             activated: false,
+             activated_at: Time.zone.now)
 
 # 追加のユーザーをまとめて生成する
 99.times do |n|

@@ -29,6 +29,13 @@ malory:
   activated: true
   activated_at: <%= Time.zone.now %>
 
+not_activated_user:
+  name: not_activated_user
+  email: not_activated_user@example.gov
+  password_digest: <%= User.digest('password') %>
+  activated: false
+  activated_at: <%= Time.zone.now %>
+
 <% 30.times do |n| %>   # pagintionの上限が３０人なので必ず二ページ以上になる
 user_<%= n %>:
   name:  <%= "User #{n}" %>

@@ -1,0 +1,10 @@
+<!--staticpages/home.html.erb-->
+<% if @feed_items.any? %>
+  <ol class="microposts">
+    <!-- collectionを渡すと、<li>を列挙してくれる -->
+    <%= render @feed_items %>
+  </ol>
+  <!--defaultでは、Microposts controllerのGETリクエストを送り、index actionが実行されるけど、routesがないので、paramsで指定する-->
+  <%= will_paginate @feed_items, 
+                    params: { controller: :staticpages, action: :home } %>
+<% end %>

@@ -19,7 +19,7 @@ class MicropostsController < ApplicationController
     @micropost.destroy
     flash[:success] = "Micropost deleted"
     # 一個前のページに戻す(つまり画面を変えないで削除する)
-    redirect_back(fallback_location: root_)
+    redirect_back(fallback_location: root_url)
     # これでもOK=> redirect_to request.referrer || root_url
     #         ? =>  redirect_to root_url
 

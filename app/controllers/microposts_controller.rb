@@ -10,6 +10,7 @@ class MicropostsController < ApplicationController
     else
       @feed_items = current_user.feed.paginate(page: params[:page])
       render 'staticpages/home'
+      # redirect_to root_url
     end
   end
   
@@ -18,8 +19,10 @@ class MicropostsController < ApplicationController
     @micropost.destroy
     flash[:success] = "Micropost deleted"
     # 一個前のページに戻す(つまり画面を変えないで削除する)
-    redirect_back(fallback_location: root_url)
+    redirect_back(fallback_location: root_)
     # これでもOK=> redirect_to request.referrer || root_url
+    #         ? =>  redirect_to root_url
+
   end
 
   private

@@ -4,6 +4,7 @@ class MicropostsController < ApplicationController
   
   def create
     @micropost = current_user.microposts.build(micropost_params)
+    @micropost.image.attach(params[:micropost][:image])  #micropost.rbで:image 
     if @micropost.save
       flash[:success] = "Micropost created!"
       redirect_to root_url
@@ -25,7 +26,7 @@ class MicropostsController < ApplicationController
   private
 
     def micropost_params
-      params.require(:micropost).permit(:content)
+      params.require(:micropost).permit(:content, :image)
     end
     
     # current_userがdeleteしようとしている投稿を保有していないならrootへ飛ぶ

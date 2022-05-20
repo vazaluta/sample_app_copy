@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails',      '6.0.4'
+gem 'aws-sdk-s3',              '1.46.0', require: false
+gem 'image_processing',           '1.9.3' # 画像処理
+gem 'mini_magick',                '4.9.5' # imagemagickをrailsで使えるようにする
+gem 'active_storage_validations', '0.8.2'
 gem 'bcrypt',         '3.1.13'
 gem 'faker',          '2.20.0'            # 適当な名前を作成
 gem 'will_paginate',           '3.3.1'    # pagination

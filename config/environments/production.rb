@@ -76,9 +76,6 @@ Rails.application.configure do
     :domain         => host,
     :authentication => :plain,
   }
-  
-  # アップロードされたファイルをAWSに保存する
-  config.active_storage.service = :amazon
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

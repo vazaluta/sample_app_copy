@@ -16,6 +16,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     end
     assert_select 'div#error_explanation'
     assert_select 'a[href=?]', '/?page=2'  # 正しいページネーションリンク
+    
     # 有効な送信
     content = "This micropost really ties the room together"
     assert_difference 'Micropost.count', 1 do

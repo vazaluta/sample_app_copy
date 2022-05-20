@@ -21,8 +21,9 @@ class MicropostsController < ApplicationController
     # 一個前のページに戻す(つまり画面を変えないで削除する)
     # redirect_back(fallback_location: root_url)
     # これでもOK=> redirect_to request.referrer || root_url
-    redirect_to root_url　# 一つ前のページは/microposts/のため、
-                          # そこにGETリクエストを送っても、そんなパスはない
+    redirect_to root_url
+    # 一つ前のページは/microposts/のため、
+    # そこにGETリクエストを送っても、そんなパスはない
   end
 
   private

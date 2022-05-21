@@ -1,5 +1,3 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 michael:
   name: Michael Example
   email: michael@example.com
@@ -7,14 +5,14 @@ michael:
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
-  
+
 archer:
   name: Sterling Archer
   email: duchess@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
-  
+
 lana:
   name: Lana Kane
   email: hands@example.gov
@@ -29,14 +27,7 @@ malory:
   activated: true
   activated_at: <%= Time.zone.now %>
 
-not_activated_user:
-  name: not_activated_user
-  email: not_activated_user@example.gov
-  password_digest: <%= User.digest('password') %>
-  activated: false
-  activated_at: <%= Time.zone.now %>
-
-<% 30.times do |n| %>   # pagintionの上限が３０人なので必ず二ページ以上になる
+<% 30.times do |n| %>
 user_<%= n %>:
   name:  <%= "User #{n}" %>
   email: <%= "user-#{n}@example.com" %>
@@ -44,3 +35,10 @@ user_<%= n %>:
   activated: true
   activated_at: <%= Time.zone.now %>
 <% end %>
+
+not_activated_user:
+  name: None Activated
+  email: none_activated@example.gov
+  password_digest: <%= User.digest('password') %>
+  activated: false
+  activated_at: <%= Time.zone.now %>

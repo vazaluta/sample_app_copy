@@ -1,5 +1,24 @@
 class User < ApplicationRecord
   has_many :microposts, dependent: :destroy
+  # => micropost_id <-> user_id
+  # => Default: class_name: "Micropost" 問題なし
+  # => Default: foreign_key: micropost_id  問題なし
+  # => "#{Model Name}s"
+  has_many :active_relationships, class_name:  "Relationship",
+                                 foreign_key: "follower_id",
+                                   dependent:   :destroy  # 自分が削除されたら相手のfollowerが一人減るよ 
+  # => Default: class_name: "active_relationship" 問題あり
+  # => Default: foreign_key: actiove_relationship_id  問題あり
+  has_many :passive_relationships, class_name:  "Relationship",
+                                  foreign_key: "followed_id",
+                                    dependent:   :destroy
+                                    # realationship tabaleのfollowed_id culum
+  has_many :following, through: :active_relationships,
+                        source: :followed # method
+  # => following methodを使うことで、下記と同じことができる
+  # => user.active_relationships.map(&:followed)
+  has_many :followers, through: :passive_relationships,
+                        source: :follower
   
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
@@ -89,6 +108,21 @@ class User < ApplicationRecord
     # => SQL文に変数を代入する場合は常にescapeする
   end
   
+  # ユーザーをフォローする
+  def follow(other_user)
+    self.following << other_user
+  end
+
+  # ユーザーをフォロー解除する
+  def unfollow(other_user)
+    self.active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # 現在のユーザーがフォローしてたらtrueを返す
+  def following?(other_user)
+    self.following.include?(other_user)
+  end
+
   private
 
     # メールアドレスをすべて小文字にする

@@ -43,7 +43,7 @@ module SessionsHelper
   end
 
   # ユーザーがログインしていればtrue、その他ならfalseを返す
-  def logged_in?    # hedder/controllerで使用
+  def logged_in?    # hedder/controller, session_helperで使用
     !current_user.nil?
   end
   

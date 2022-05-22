@@ -102,9 +102,19 @@ class User < ApplicationRecord
   
   # 試作feedの定義
   # 完全な実装は次章の「ユーザーをフォローする」を参照
-  #user.idに合致する投稿をパッケージ化する
+  # user.idに合致する投稿をパッケージ化する
   def feed
-    Micropost.where("user_id = ?", self.id)    
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE follower_id = :user_id"
+                     # =>サブセレクト
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: self.id)
+    # Micropost.where("user_id IN (:following_ids) OR user_id = :user_id", 
+    #                 following_ids: following_ids, user_id: self.id)
+    # =>問い合わせ２回
+    # => following_idsとself.idの投稿の和集合を取得
+    # => following_ids == following.map(&:id) # followしている人のidを取得
+    # Micropost.where("user_id = ?", self.id) 
     # => SQL文に変数を代入する場合は常にescapeする
   end
   

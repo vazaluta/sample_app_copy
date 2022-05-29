@@ -17,8 +17,3 @@ module SampleApp
     # the framework and any gems in your application.
   end
 end
-
-# Rails.application.config.assets.paths << Rails.root.join("vendor", "original_assets", "images")
-# Rails.application.config.assets.paths << Rails.root.join("vendor", "original_assets", "stylesheets")
-# Rails.application.config.assets.paths << Rails.root.join("vendor", "original_assets", "javascripts")
-# config.assets.unknown_asset_fallback = false

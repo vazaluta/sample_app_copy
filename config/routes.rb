@@ -13,13 +13,15 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   
   resources :users do
-    member do   # => member: users/:id/following, collection: users/following 
-      get :following, :followers  # => GET request, following action, following_user_path(:id)
+  # memberだと、 users/:id/following, collectionだと users/following 
+    member do
+      # GET request, following action, following_user_path(:id)
+      get :following, :followers
     end
   end
   # GET /account_activation/トークン/edit 
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :microposts,          only: [:create, :destroy]
+  resources :microposts,          only: [:show ,:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
 end

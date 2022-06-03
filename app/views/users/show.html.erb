@@ -13,6 +13,7 @@
     <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
+      <%# あああ %>
       <ol class="microposts">
         <!-- collectionを渡すと、<li>を列挙してくれる -->
         <!-- microposts_objectに対してrenderを実行するとdefaultで_microposts.html.erbを探しに行く -->

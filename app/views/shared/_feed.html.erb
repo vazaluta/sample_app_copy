@@ -2,6 +2,9 @@
 <% if @feed_items.any? %>
   <ol class="microposts">
     <!-- collectionを渡すと、<li>を列挙してくれる -->
+    <!-- @feed_items do |feed_item| -->
+      <!-- render feed_item -->
+    <!-- do -->
     <%= render @feed_items %>
   </ol>
   <!--defaultでは、Microposts controllerのGETリクエストを送り、index actionが実行されるけど、routesがないので、paramsで指定する-->

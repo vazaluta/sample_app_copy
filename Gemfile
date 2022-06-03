@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails',      '6.0.4'
+gem "pry-rails"
+gem "pry-byebug"
 gem 'bcrypt',         '3.1.13'
 gem 'faker',          '2.20.0'            # 適当な名前を作成
 gem 'will_paginate',           '3.3.1'    # pagination

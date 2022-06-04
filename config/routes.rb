@@ -22,6 +22,6 @@ Rails.application.routes.draw do
   # GET /account_activation/トークン/edit 
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :microposts,          only: [:show ,:create, :destroy]
+  resources :microposts,          only: [:show, :new ,:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
 end

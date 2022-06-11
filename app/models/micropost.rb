@@ -2,8 +2,31 @@ class Micropost < ApplicationRecord
   belongs_to :user
   # => user_id <-> micropost_id
   # => Default: foreign_key: user_id  問題なし
+
+  # favoritesメソッド: いいねをした人の
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_users, through: :favorites, 
+                              source: :user
+  # => @micropost.favorites.map(&:user)
+
   
   default_scope -> { self.order(created_at: :desc) }    # order :順序
+  # default_scope -> { self.order(created_at: :desc) }    # order :順序
+  
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 5000 }
+
+  # favorite Tableのuser.idに一致するレコードを検索し、それが存在すればtrue
+  def favorited?(user)
+    self.favorites.where(user_id: user.id).exists?
+  end
+ #exits いる？　likesampleでは下記で定義している
+ # /Users/masatosawada/environment/like_sample/app/models/user.rb
+#  def already_liked?(post)
+#   self.likes.exists?(post_id: post.id)
+#  end
+# ↓
+# user.rbに定義してみる
+
+
 end

@@ -1,24 +1,25 @@
 class User < ApplicationRecord
+  has_many :favorites,  dependent: :destroy
   has_many :microposts, dependent: :destroy
   # => micropost_id <-> user_id
   # => Default: class_name: "Micropost" 問題なし
   # => Default: foreign_key: micropost_id  問題なし
   # => "#{Model Name}s"
   has_many :active_relationships, class_name:  "Relationship",
-                                 foreign_key: "follower_id",
+                                 foreign_key:  "follower_id", # 自分のid
                                    dependent:   :destroy  # 自分が削除されたら相手のfollowerが一人減るよ 
   # => Default: class_name: "active_relationship" 問題あり
   # => Default: foreign_key: actiove_relationship_id  問題あり
   has_many :passive_relationships, class_name:  "Relationship",
-                                  foreign_key: "followed_id",
-                                    dependent:   :destroy
+                                  foreign_key:  "followed_id", # 自分のid
+                                    dependent:  :destroy
                                     # realationship tabaleのfollowed_id culum
   has_many :following, through: :active_relationships,
                         source: :followed # method
   # => following methodを使うことで、下記と同じことができる
   # => user.active_relationships.map(&:followed)
   has_many :followers, through: :passive_relationships,
-                        source: :follower
+                        source: :follower # method
   
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
@@ -133,6 +134,12 @@ class User < ApplicationRecord
     self.following.include?(other_user)
   end
 
+  # 引数の投稿をすでにいいねしているか？
+  def already_favorited?(micropost)
+    self.favorites.exists?(micropost_id: micropost.id)
+  end
+
+
   private
 
     # メールアドレスをすべて小文字にする
@@ -145,4 +152,5 @@ class User < ApplicationRecord
       self.activation_token  = User.new_token
       self.activation_digest = User.digest(activation_token)
     end
+    
 end

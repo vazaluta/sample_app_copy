@@ -32,7 +32,7 @@ class MicropostsController < ApplicationController
     # 一つ前のページは/microposts/のため、
     # そこにGETリクエストを送っても、そんなパスはない
   end
-
+  
   private
 
     def micropost_params

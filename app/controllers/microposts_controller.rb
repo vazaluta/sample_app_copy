@@ -1,5 +1,5 @@
 class MicropostsController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :logged_in_user, only: [:new, :create, :destroy]
   before_action :correct_user,   only: :destroy
   
   def show
@@ -7,6 +7,7 @@ class MicropostsController < ApplicationController
   end
 
   def new
+    @micropost = current_user.microposts.build
   end
 
   def create
@@ -16,7 +17,7 @@ class MicropostsController < ApplicationController
       redirect_to root_url
     else
       @feed_items = current_user.feed.paginate(page: params[:page])
-      render 'staticpages/home'
+      render 'microposts/new'
       # redirect_to root_url
     end
   end
@@ -35,8 +36,10 @@ class MicropostsController < ApplicationController
   
   private
 
+    # strong parameter
     def micropost_params
-      params.require(:micropost).permit(:content)
+      self.params.require(:micropost).permit(:content)
+      # params[:micropost][:content]
     end
     
     # current_userがdeleteしようとしている投稿を保有していないならrootへ飛ぶ

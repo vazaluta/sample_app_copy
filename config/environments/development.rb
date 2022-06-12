@@ -35,7 +35,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
   
   # https/<host>/account_activation/トークン/edit
-  host = 'fa2c4e36dc5441e5a5b4851bee7acf88.vfs.cloud9.us-east-1.amazonaws.com'
+  host = 'localhost:3000/'
   # ここをコピペすると失敗します。自分の環境のホストに変えてください。
   # クラウドIDEの場合は以下をお使いください
   config.action_mailer.default_url_options = { host: host, protocol: 'https' }

@@ -4,4 +4,6 @@ class Favorite < ApplicationRecord
   belongs_to :user
   # micropostメソッド: @favorite.micropost=>
   belongs_to :micropost
+
+  validates :user_id,      presence: true
 end

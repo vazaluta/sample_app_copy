@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :favorites,  dependent: :destroy
   has_many :microposts, dependent: :destroy
-  # => micropost_id <-> user_id
+  # => micropost_id <-> user_idaaaaaaa
   # => Default: class_name: "Micropost" 問題なし
   # => Default: foreign_key: micropost_id  問題なし
   # => "#{Model Name}s"
@@ -20,6 +20,10 @@ class User < ApplicationRecord
   # => user.active_relationships.map(&:followed)
   has_many :followers, through: :passive_relationships,
                         source: :follower # method
+  
+  # favoriteした投稿のデータの塊を表示。throughはメソッド名、つまりfavoriteではない
+  has_many :favoriting,  through: :favorites,
+                          source: :micropost
   
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
@@ -126,7 +130,7 @@ class User < ApplicationRecord
 
   # ユーザーをフォロー解除する
   def unfollow(other_user)
-    self.active_relationships.find_by(followed_id: other_user.id).destroy
+    active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
   # 現在のユーザーがフォローしてたらtrueを返す
@@ -139,6 +143,16 @@ class User < ApplicationRecord
     self.favorites.exists?(micropost_id: micropost.id)
   end
 
+  # ユーザーをいいねする
+  def favorite(micropost)
+    self.favoriting << micropost
+    # => self.favorites.map(&:micropost)
+  end
+
+  # ユーザーのいいねをはずす
+  def unfavorite(micropost)
+    self.favorites.find_by(micropost_id: micropost.id).destroy
+  end
 
   private
 

@@ -69,9 +69,11 @@ class UsersController < ApplicationController
 
   private
 
+    # form で渡した値（入力した値）がデータの塊（ハッシュのハッシュ）を、メソッドで扱えるようにする
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation)
+      # params[:user][:name/:email/:pass...]
     end
     
     # beforeアクション

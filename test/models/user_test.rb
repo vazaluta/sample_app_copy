@@ -85,7 +85,8 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
-  
+
+# follow/unfollow
   test "should follow and unfollow a user" do
     michael = users(:michael)
     archer  = users(:archer)
@@ -113,4 +114,16 @@ class UserTest < ActiveSupport::TestCase
       assert_not michael.feed.include?(post_unfollowed)
     end
   end
+
+# favorite/unfovorite
+  test "should favorite and unfavorite a user" do
+    user = users(:michael)
+    micropost = microposts(:orange)
+    assert_not user.already_favorited?(micropost)
+    user.favorite(micropost)
+    assert user.already_favorited?(micropost)
+    user.unfavorite(micropost)
+    assert_not user.already_favorited?(micropost)
+  end
+  
 end

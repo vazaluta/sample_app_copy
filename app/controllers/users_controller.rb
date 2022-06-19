@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
   
   def index
-    users = User.includes(:followers).sort {|a,b| b.followers.size <=> a.followers.size}
+    users = User.where(activated: true).includes(:followers).sort {|a,b| b.followers.size <=> a.followers.size}
     @users = Kaminari.paginate_array(users).page(params[:page])
   end
   

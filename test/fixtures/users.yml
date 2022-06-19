@@ -27,6 +27,43 @@ malory:
   activated: true
   activated_at: <%= Time.zone.now %>
 
+# user_5:
+#   name:  <%= "User5" %>
+#   email: <%= "user-5@example.com" %>
+#   password_digest: <%= User.digest('password') %>
+#   activated: true
+#   activated_at: <%= Time.zone.now %>
+# user_6:
+#   name:  <%= "User6" %>
+#   email: <%= "user-6@example.com" %>
+#   password_digest: <%= User.digest('password') %>
+#   activated: true
+#   activated_at: <%= Time.zone.now %>
+# user_7:
+#   name:  <%= "User7" %>
+#   email: <%= "user-7@example.com" %>
+#   password_digest: <%= User.digest('password') %>
+#   activated: true
+#   activated_at: <%= Time.zone.now %>
+# user_8:
+#   name:  <%= "User8" %>
+#   email: <%= "user-8@example.com" %>
+#   password_digest: <%= User.digest('password') %>
+#   activated: true
+#   activated_at: <%= Time.zone.now %>
+# user_9:
+#   name:  <%= "User9" %>
+#   email: <%= "user-9@example.com" %>
+#   password_digest: <%= User.digest('password') %>
+#   activated: true
+#   activated_at: <%= Time.zone.now %>
+# user_10:
+#   name:  <%= "User10" %>
+#   email: <%= "user-10@example.com" %>
+#   password_digest: <%= User.digest('password') %>
+#   activated: true
+#   activated_at: <%= Time.zone.now %>
+
 <% 30.times do |n| %>
 user_<%= n %>:
   name:  <%= "User#{n}" %>

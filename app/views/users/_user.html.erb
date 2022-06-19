@@ -1,14 +1,28 @@
 
-<%# render @users => render users.each do |user|{ fravatar_for user } end %>
+<%# render @users => render users.each do |user|{ gravatar_for user } end %>
 <%# なので、user　が普通に使われてる %>
 <li>
   <%= gravatar_for user, size: 50 %>
+  <!-- user => user_path(:id) -->
   <%= link_to user.name, user %>
   <!-- current_userがuser(admin:true)ならdeleteできない -->
-  <% if current_user.admin? && !current_user?(user) %>
+  <% if current_user && current_user.admin? && !current_user?(user) %>
     | <%= link_to "delete", user, method: :delete,
                                   data: { confirm: "You sure?" } %>
   <% end %>
-  <!-- user => user_path(:id) -->
   <!-- Delete /users/:id => destroyアクション -->
+  <div class="stats">
+    <a href="<%= following_user_path(user) %>">
+    <strong id="following" class="stat">
+      <%=  user.following.count %>
+    </strong>
+    following
+    </a>
+    <a href="<%= followers_user_path(user) %>">
+      <strong id="followers" class="stat">
+        <%= user.followers.count %>
+      </strong>
+      followers
+    </a>
+  </div>
 </li>

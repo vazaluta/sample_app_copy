@@ -14,11 +14,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   
   # controller内部で制御する挙動のtestだからここでかく
   
-  test "should redirect index when not logged in" do
-    get users_path
-    assert_redirected_to login_url
-  end
-  
   test "should redirect edit when not logged in" do
     get edit_user_path(@user)   # getリクエスト
     assert_not flash.empty?

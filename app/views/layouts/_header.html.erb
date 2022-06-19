@@ -3,11 +3,11 @@
     <%= link_to "糖質村", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "特集",   root_path %></li>
-        <li><%= link_to "人気記事",   help_path %></li>
+        <li><%= link_to "人気記事",   microposts_path %></li>
+        <li><%= link_to "人気ユーザー",  users_path %></li>
+
         <!-- log_in or !log_in -->
         <% if logged_in? %>
-          <li><%= link_to "人気ユーザー",  users_path %></li>
           <li><%= link_to "投稿",     new_micropost_path %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

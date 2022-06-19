@@ -4,10 +4,8 @@
     <!-- collectionを渡すと、<li>を列挙してくれる -->
     <!-- @feed_items do |feed_item| -->
       <!-- render feed_item -->
-    <!-- do -->
+    <!-- end -->
     <%= render @feed_items %>
   </ol>
-  <!--defaultでは、Microposts controllerのGETリクエストを送り、index actionが実行されるけど、routesがないので、paramsで指定する-->
-  <%= will_paginate @feed_items, 
-                    params: { controller: :staticpages, action: :home } %>
+  <%= paginate @feed_items %>
 <% end %>

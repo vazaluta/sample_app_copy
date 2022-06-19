@@ -1,0 +1,13 @@
+<% provide(:title, 'Favorite Post Ranking') %>
+<h1>Favorite Post Ranking</h1>
+
+<%= paginate @microposts %>
+
+<ul class="microposts">
+  <% @microposts.each.with_index(1) do |micropost, i|%>
+    第<%= i %>位
+    <%= render partial: 'microposts/micropost', locals: { micropost: micropost } %>
+  <% end %>
+</ul>
+
+<%= paginate @microposts %>

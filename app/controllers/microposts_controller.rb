@@ -2,6 +2,11 @@ class MicropostsController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
   before_action :correct_user,   only: :destroy
   
+  def index
+    microposts = Micropost.includes(:favorited_users).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size}
+    @microposts = Kaminari.paginate_array(microposts).page(params[:page]).per(10)
+  end
+
   def show
     @micropost = Micropost.find(params[:id])
   end

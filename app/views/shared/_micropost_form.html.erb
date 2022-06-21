@@ -2,7 +2,13 @@
   <!--object変数(key)に、参照しているオブジェクト(value)を渡す => パーシャルでobject変数を作成 -->
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "記事を書いて..." %>
+    <%= f.label :title, '投稿タイトル' %>
+    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.label :content, '投稿文' %>
+    <%= f.text_area :content, placeholder: "5000文字以内の投稿文" %>
+    <%# <small id="title-tip" class="form-text text-muted">
+        タイトルを入力してください。
+    </small> %>
   </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
 <% end %>

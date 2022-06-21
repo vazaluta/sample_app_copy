@@ -16,6 +16,14 @@ User.create!(name:  "not_activated_user",   # 例外処理"!"によって、vali
              activated: false,
              activated_at: Time.zone.now)
 
+User.create!(name:  "sawada masato",   # 例外処理"!"によって、validationで１００回引っかかるのを防ぐ
+            email: "vazaluta@gmail.com",
+            password:              "foobar",
+            password_confirmation: "foobar",
+            admin: false,      # 権限の付与
+            activated: true,
+            activated_at: Time.zone.now)
+
 # 追加のユーザーをまとめて生成する
 99.times do |n|
   name  = Faker::Name.name

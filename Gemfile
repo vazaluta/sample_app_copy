@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails',      '6.0.4'
+gem 'jquery-rails'
 gem 'kaminari'
 gem "pry-rails"
 gem "pry-byebug"

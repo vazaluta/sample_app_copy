@@ -1,6 +1,11 @@
 <% provide(:title, 'User Ranking') %>
 <h1>User Ranking</h1>
-
+<%# <p>テスト</p>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("p").text("成功！！");
+  }); %>
+</script>
 <%= paginate @users %>
 
 <ul class="users">

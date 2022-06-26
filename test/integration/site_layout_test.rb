@@ -5,7 +5,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   test "not loged_in user layout links" do
     get root_path
     assert_template 'staticpages/home'
-    assert_select "a[href=?]", root_path, count: 1
+    assert_select "a[href=?]", root_path, count: 2
     assert_select "a[href=?]", microposts_path
     assert_select "a[href=?]", users_path
 
@@ -21,7 +21,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_redirected_to user_path(@user)
     get root_path
     assert_template 'staticpages/home'
-    assert_select "a[href=?]", root_path, count: 1
+    assert_select "a[href=?]", root_path, count: 2
     assert_select "a[href=?]", microposts_path
     assert_select "a[href=?]", users_path
 

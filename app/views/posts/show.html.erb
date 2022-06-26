@@ -1,0 +1,43 @@
+<%# 俺作った %>
+<div class= "posts">
+  <%= link_to gravatar_for(@post.user, size: 30), @post.user %>
+  <span class="user">
+    <%= @post.user.name %>
+  </span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(@post.created_at) %> ago.
+  </span>
+</div>
+<div class="show-content">
+  <% if current_user?(@post.user) %>
+  <!--post => post_path-->
+    <%= link_to "delete", @post, method: :delete,
+                               data: { confirm: "You sure?" } %>
+  <% end %>
+  <%# 編集機能 %>
+  | <%= link_to "edit", edit_post_path(@post) %>
+
+  <h1> <%= @post.title %> </h1> 
+  <%= @post.content %>
+</div>
+
+<%# いいね機能 %>
+<% if current_user.already_favorited?(@post) %>
+  <%# @post => post.id %>
+  <%= link_to post_favorite_path(@post), class: "btn", method: :delete do %>
+    <i class="fa-solid fa-thumbs-up fa-3x"></i>
+  <% end %>
+<% else %>
+  <%# default => method: :post => postリクエストを送る %>
+  <%= link_to post_favorites_path(@post), class: "btn", method: :post do %>
+    <i class="fa-regular fa-thumbs-up fa-3x"></i>  
+  <% end %>
+<% end %>
+<span class="middle-size"><%= @post.favorites.count %></span>
+<p class="margin-top">いいねしたユーザー</p>
+<% @post.favorited_users.each do |user| %>
+  <li><%= user.name %></li>
+<% end %>
+<%= link_to :back do %>
+  <button class="btn margin-top">BACK</button>
+<% end %>

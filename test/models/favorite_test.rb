@@ -4,11 +4,11 @@ class FavoriteTest < ActiveSupport::TestCase
   def setup
 
     @user = users(:michael)
-    @micropost = microposts(:orange)
-    @favorite = @user.favorites.build(micropost_id: @micropost.id)
+    @post = posts(:orange)
+    @favorite = @user.favorites.build(post_id: @post.id)
 
     # @favorite = Favorite.new(user_id: users(:michael).id,
-    #                     micropost_id: microposts(:orange).id)
+    #                     post_id: posts(:orange).id)
   end
 
   test "should be valid" do
@@ -20,8 +20,8 @@ class FavoriteTest < ActiveSupport::TestCase
     assert_not @favorite.valid?
   end
 
-  test "should require a micropost_id" do
-    @favorite.micropost_id = nil
+  test "should require a post_id" do
+    @favorite.post_id = nil
     assert_not @favorite.valid?
   end
 end

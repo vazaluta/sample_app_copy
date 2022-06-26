@@ -1,13 +1,13 @@
-class Micropost < ApplicationRecord
+class Post < ApplicationRecord
   belongs_to :user
-  # => user_id <-> micropost_id
+  # => user_id <-> post_id
   # => Default: foreign_key: user_id  問題なし
 
   # favoritesメソッド: いいねをした人の
   has_many :favorites, dependent: :destroy
   has_many :favorited_users, through: :favorites, 
                               source: :user
-  # => @micropost.favorites.map(&:user)
+  # => @post.favorites.map(&:user)
 
   
   default_scope -> { self.order(created_at: :desc) }    # order :順序

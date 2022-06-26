@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   has_many :favorites,  dependent: :destroy
-  has_many :microposts, dependent: :destroy
-  # => micropost_id <-> user_idaaaaaaa
-  # => Default: class_name: "Micropost" 問題なし
-  # => Default: foreign_key: micropost_id  問題なし
+  has_many :posts, dependent: :destroy
+  # => post_id <-> user_idaaaaaaa
+  # => Default: class_name: "Post" 問題なし
+  # => Default: foreign_key: post_id  問題なし
   # => "#{Model Name}s"
   has_many :active_relationships, class_name:  "Relationship",
                                  foreign_key:  "follower_id", # 自分のid
@@ -22,8 +22,8 @@ class User < ApplicationRecord
                         source: :follower # method
   
   # favoriteした投稿のデータの塊を表示。throughはメソッド名、つまりfavoriteではない
-  has_many :favorited_microposts,  through: :favorites,
-                                   source: :micropost
+  has_many :favorited_posts,  through: :favorites,
+                                   source: :post
   
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
@@ -112,14 +112,14 @@ class User < ApplicationRecord
     following_ids = "SELECT followed_id FROM relationships
                      WHERE follower_id = :user_id"
                      # =>サブセレクト
-    Micropost.where("user_id IN (#{following_ids})
+    Post.where("user_id IN (#{following_ids})
                      OR user_id = :user_id", user_id: self.id)
-    # Micropost.where("user_id IN (:following_ids) OR user_id = :user_id",
+    # Post.where("user_id IN (:following_ids) OR user_id = :user_id",
     #                 following_ids: following_ids, user_id: self.id)
     # =>問い合わせ２回
     # => following_idsとself.idの投稿の和集合を取得
     # => following_ids == following.map(&:id) # followしている人のidを取得
-    # Micropost.where("user_id = ?", self.id) 
+    # Post.where("user_id = ?", self.id) 
     # => SQL文に変数を代入する場合は常にescapeする
   end
   
@@ -139,33 +139,33 @@ class User < ApplicationRecord
   end
 
   # 引数の投稿をすでにいいねしているか？
-  def already_favorited?(micropost)
-    self.favorites.exists?(micropost_id: micropost.id)
+  def already_favorited?(post)
+    self.favorites.exists?(post_id: post.id)
   end
 
   # ユーザーをいいねする
-  def favorite(micropost)
-    self.favorited_microposts << micropost
-    # => self.favorites.map(&:micropost)
+  def favorite(post)
+    self.favorited_posts << post
+    # => self.favorites.map(&:post)
   end
 
   # ユーザーのいいねをはずす
-  def unfavorite(micropost)
-    self.favorites.find_by(micropost_id: micropost.id).destroy
+  def unfavorite(post)
+    self.favorites.find_by(post_id: post.id).destroy
   end
 
   def favorite_feed
-    favorited_microposts_ids = "SELECT followed_id FROM relationships
+    favorited_posts_ids = "SELECT followed_id FROM relationships
                      WHERE follower_id = :user_id"
                      # =>サブセレクト
-    Favorite.where("user_id IN (#{favorited_microposts_ids})
+    Favorite.where("user_id IN (#{favorited_posts_ids})
                      OR user_id = :user_id", user_id: self.id)
-    # Micropost.where("user_id IN (:following_ids) OR user_id = :user_id", 
+    # Post.where("user_id IN (:following_ids) OR user_id = :user_id", 
     #                 following_ids: following_ids, user_id: self.id)
     # =>問い合わせ２回
     # => following_idsとself.idの投稿の和集合を取得
     # => following_ids == following.map(&:id) # followしている人のidを取得
-    # Micropost.where("user_id = ?", self.id) 
+    # Post.where("user_id = ?", self.id) 
     # => SQL文に変数を代入する場合は常にescapeする
   end
 

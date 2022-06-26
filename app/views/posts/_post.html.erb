@@ -1,0 +1,30 @@
+<li id="post-<%= post.id %>" >
+    <%= link_to gravatar_for(post.user, size: 50), post.user %>
+    <span class="user">
+      <%= link_to post.user.name, post.user %>
+    </span>
+    <span class="post-title">
+      <%= link_to post.title, post_url(post.id) %>
+    </span>
+    <span class="content">
+      <%= truncate(post.content, length: 100) %>
+      <%#= post.content.truncate(30) %>
+      <% if post.content.size > 100 %>
+        <%= link_to "続きを見る", post_url(post.id) %>
+      <% end %>
+    </span>
+    <span>
+      <i class="fa-solid fa-thumbs-up"></i>
+      <%= post.favorites.count %>
+    </span>
+
+    <!-- time_ago_in_words :何分前を表示するメソッド -->
+    <span class="timestamp">
+      Posted <%= time_ago_in_words(post.created_at) %> ago.
+      <% if current_user?(post.user) %>
+        <!--post => post_path-->
+        <%= link_to "delete", post, method: :delete,
+                                        data: { confirm: "You sure?" } %>
+      <% end %>
+    </span>
+</li>

@@ -42,7 +42,7 @@ users = User.order(:created_at).take(6)
 50.times do
   title = Faker::Lorem.sentence(word_count: 5)    # 適当な５wordsを作成
   content = Faker::Lorem.sentence(word_count: 200)    # 適当な200wordsを作成
-  users.each { |user| user.microposts.create!(title: title, content: content) }
+  users.each { |user| user.posts.create!(title: title, content: content) }
 end
 
 # 以下のリレーションシップを作成する
@@ -54,5 +54,5 @@ following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
 
 # favoriteテーブルに作成
-micropost  = Micropost.first
-user.favorite(micropost)
+post  = Post.first
+user.favorite(post)

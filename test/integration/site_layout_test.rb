@@ -6,7 +6,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     get root_path
     assert_template 'staticpages/home'
     assert_select "a[href=?]", root_path, count: 2
-    assert_select "a[href=?]", microposts_path
+    assert_select "a[href=?]", posts_path
     assert_select "a[href=?]", users_path
 
     assert_select "a[href=?]", about_path  
@@ -22,13 +22,13 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     get root_path
     assert_template 'staticpages/home'
     assert_select "a[href=?]", root_path, count: 2
-    assert_select "a[href=?]", microposts_path
+    assert_select "a[href=?]", posts_path
     assert_select "a[href=?]", users_path
 
     assert_select "a[href=?]", about_path
     assert_select "a[href=?]", contact_path
     #  ログイン後特有
-    assert_select "a[href=?]", new_micropost_path
+    assert_select "a[href=?]", new_post_path
     assert_select "a[href=?]", user_path(@user)
     assert_select "a[href=?]", edit_user_path(@user)
     assert_select "a[href=?]", logout_path

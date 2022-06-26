@@ -40,8 +40,9 @@ end
 # ユーザーの一部を対象にマイクロポストを生成する
 users = User.order(:created_at).take(6)
 50.times do
-  content = Faker::Lorem.sentence(word_count: 5)    # 適当な５wordsを作成
-  users.each { |user| user.microposts.create!(content: content) }
+  title = Faker::Lorem.sentence(word_count: 5)    # 適当な５wordsを作成
+  content = Faker::Lorem.sentence(word_count: 200)    # 適当な200wordsを作成
+  users.each { |user| user.microposts.create!(title: title, content: content) }
 end
 
 # 以下のリレーションシップを作成する

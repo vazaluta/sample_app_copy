@@ -15,7 +15,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build
   end
 
-  def create
+  def create 
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = "Micropost created!"
@@ -43,8 +43,9 @@ class MicropostsController < ApplicationController
 
     # strong parameter
     def micropost_params
-      self.params.require(:micropost).permit(:content)
-      # params[:micropost][:content]
+      self.params.require(:micropost).permit(:content, :title)
+      # params[:micropost][:content/:title] 
+      # => micropost のデータの集合を渡すんだけど、其の中のcontentとtitleのみに限定して渡しますよ
     end
     
     # current_userがdeleteしようとしている投稿を保有していないならrootへ飛ぶ

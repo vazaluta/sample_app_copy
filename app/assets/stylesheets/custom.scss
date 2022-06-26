@@ -258,6 +258,26 @@ input {
   .user {
     margin-top: 5em;
     padding-top: 0;
+    a {
+      padding: 0 10px;
+      border-left: 1px solid $gray-lighter;
+      color: gray;
+      &:first-child {
+        padding-left: 0;
+        border: 0;
+      }
+      &:hover {
+        text-decoration: none;
+        color: blue;
+      }
+    }
+  }
+  .post-title {
+    font-weight: bold;
+    display: block;
+    margin-left: 60px;
+    color: inherit;
+    text-decoration: none;
   }
   .content {
     display: block;

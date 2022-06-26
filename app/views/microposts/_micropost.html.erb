@@ -3,8 +3,15 @@
     <span class="user">
       <%= link_to micropost.user.name, micropost.user %>
     </span>
+    <span class="post-title">
+      <%= link_to micropost.title, micropost_url(micropost.id) %>
+    </span>
     <span class="content">
-      <%= link_to micropost.content, micropost_url(micropost.id) %>
+      <%= truncate(micropost.content, length: 100) %>
+      <%#= micropost.content.truncate(30) %>
+      <% if micropost.content.size > 100 %>
+        <%= link_to "続きを見る", micropost_url(micropost.id) %>
+      <% end %>
     </span>
     <span>
       <i class="fa-solid fa-thumbs-up"></i>

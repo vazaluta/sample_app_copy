@@ -4,7 +4,7 @@ class MicropostTest < ActiveSupport::TestCase
   
   def setup
     @user = users(:michael)
-    @micropost = @user.microposts.build(content: "Lorem ipsum")
+    @micropost = @user.microposts.build(title: "title", content: "Lorem ipsum")
     # このコードは慣習的に正しくない
     # @micropost = Micropost.new(content: "Lorem ipsum", user_id: @user.id)
   end

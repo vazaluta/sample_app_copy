@@ -14,6 +14,7 @@ class Micropost < ApplicationRecord
   
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 5000 }
+  validates :title, presence: true, length: { maximum: 50 }
 
   # favorite Tableのuser.idに一致するレコードを検索し、それが存在すればtrue
   def favorited?(user)

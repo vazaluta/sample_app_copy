@@ -9,14 +9,19 @@
   </span>
 </div>
 <div class="show-content">
+  <h1> <%= @micropost.title %> </h1> 
   <%= @micropost.content %>
   <% if current_user?(@micropost.user) %>
   <!--micropost => micropost_path-->
     | <%= link_to "delete", @micropost, method: :delete,
-                                        data: { confirm: "You sure?" } %>
+                               data: { confirm: "You sure?" } %>
   <% end %>
+  <%# 編集機能 %>
+  or <%= link_to "edit", edit_micropost_path(@micropost) %>
+
 </div>
 
+<%# いいね機能 %>
 <% if current_user.already_favorited?(@micropost) %>
   <%# @micropost => micropost.id %>
   <%= link_to micropost_favorite_path(@micropost), class: "btn", method: :delete do %>

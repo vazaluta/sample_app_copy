@@ -282,12 +282,17 @@ input {
   .content {
     display: block;
     margin-left: 60px;
-    color: inherit;
-    text-decoration: none;
     img {
       display: block;
       padding: 5px 0;
     }
+    a {
+      font-size: smaller;
+      color: $gray-light;
+    }
+  }
+  .fa-solid {
+    margin-left: 60px;
   }
   .timestamp {
     color: $gray-light;

@@ -26,6 +26,22 @@ class MicropostsController < ApplicationController
       # redirect_to root_url
     end
   end
+
+  def edit
+    @micropost = Micropost.find(params[:id])
+  end
+
+  def update
+    @micropost = Micropost.find(params[:id])
+    if @micropost.update(micropost_params)
+      # 更新に成功した場合を扱う。
+      flash[:success] = "Post updated"
+      redirect_to @micropost
+    else
+      render 'edit'
+    end
+  end
+
   
   # DELETE /microposts/:id
   def destroy

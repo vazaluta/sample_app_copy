@@ -55,8 +55,10 @@ h2 {
 }
 
 p {
+  font-weight: bold;
   font-size: 1.1em;
   line-height: 1.7em;
+  border-top: 1px solid $gray-medium-light;
 }
 
 /* header */
@@ -297,7 +299,6 @@ input {
   .timestamp {
     color: $gray-light;
     display: block;
-    margin-left: 60px;
   }
   .gravatar {
     float: left;
@@ -326,9 +327,19 @@ span.image {
 }
 
 /* post.show.html.erb */
-.margin-top{
+.margin-top {
   margin-top: 30px;
 }
-.middle-size{
+.middle-size {
   font-size: x-large;
+}
+.favorite-user {
+  border-top: 1px solid #e8e8e8;
+}
+.comments {
+  padding: 10px 10px;
+  border-bottom: 1px solid #e8e8e8;
+  .timestamp {
+    font-size: smaller;
+  }
 }

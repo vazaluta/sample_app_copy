@@ -47,12 +47,24 @@ end
 
 # 以下のリレーションシップを作成する
 users = User.all
-user  = users.first
+first_user  = users.first
 following = users[2..50]
 followers = users[3..40]
-following.each { |followed| user.follow(followed) }
-followers.each { |follower| follower.follow(user) }
+following.each { |followed| first_user.follow(followed) }
+followers.each { |follower| follower.follow(first_user) }
+second_user = users.second
+third_user = users.third
+second_user.follow(third_user)
 
 # favoriteテーブルに作成
 post  = Post.first
-user.favorite(post)
+first_user.favorite(post)
+second_user.favorite(post)
+third_user.favorite(post)
+
+# commentテーブルに作成
+users = User.order(:created_at).take(6)
+10.times do
+  comment_content = Faker::Lorem.sentence(word_count: 20)    # 適当な20wordsを作成
+  users.each { |user| user.comments.create!(comment_content: comment_content, post_id: post.id) }
+end

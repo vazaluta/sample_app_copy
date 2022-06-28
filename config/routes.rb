@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'comments/create'
   get 'password_resets/new'
   get 'password_resets/edit'
   root 'staticpages#home'
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :posts do
     resources :favorites, only: [:create, :destroy]
+    resources :comments, only: [:create]
   end
   resources :relationships,       only: [:create, :destroy]
 end

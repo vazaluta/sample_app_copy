@@ -13,9 +13,9 @@
   <!--post => post_path-->
     <%= link_to "delete", @post, method: :delete,
                                data: { confirm: "You sure?" } %>
-  <% end %>
   <%# 編集機能 %>
-  | <%= link_to "edit", edit_post_path(@post) %>
+  <%= link_to "edit", edit_post_path(@post) %>
+  <% end %>
 
   <h1> <%= @post.title %> </h1> 
   <%= @post.content %>
@@ -38,6 +38,30 @@
 <% @post.favorited_users.each do |user| %>
   <li><%= user.name %></li>
 <% end %>
-<%= link_to :back do %>
-  <button class="btn margin-top">BACK</button>
+
+<%# コメント機能 %>
+<p class="margin-top">コメントする</p>
+<%= form_with(model:[@post, @comment], method: :post) do |f| %>
+  <%= f.text_area :comment_content %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit 'コメントする' %>
 <% end %>
+  <p class="margin-top">コメント一覧</p>
+  <% @comments.each do |comment| %>
+    <div class=comments>
+      <%= link_to gravatar_for(comment.user, size: 30), comment.user %>
+      <span class="user">
+        <%= comment.user.name %>
+      </span>
+      <span class="timestamp">
+        | Posted <%= time_ago_in_words(comment.created_at) %> ago.
+      </span>
+      <div class="comment_content"> <%= comment.comment_content %> </div>
+    </div>
+  <% end %>
+
+<div>
+  <%= link_to :back do %>
+    <button class="btn margin-top">BACK</button>
+  <% end %>
+</div>

@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  has_many :favorites,  dependent: :destroy
   has_many :posts, dependent: :destroy
   # => post_id <-> user_idaaaaaaa
   # => Default: class_name: "Post" 問題なし
@@ -21,9 +20,13 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships,
                         source: :follower # method
   
+  has_many :favorites,  dependent: :destroy
   # favoriteした投稿のデータの塊を表示。throughはメソッド名、つまりfavoriteではない
   has_many :favorited_posts,  through: :favorites,
                                    source: :post
+
+  has_many :comments, dependent: :destroy
+  has_many :commented_posts, through: :comments, source: :post 
   
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email

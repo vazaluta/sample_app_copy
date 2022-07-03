@@ -1,14 +1,28 @@
 class FavoritesController < ApplicationController
   def create
-    @post_favorite = Favorite.new(user_id: current_user.id, post_id: params[:post_id])
-    #              = current_user.favorites.create(post_id: params[:post_id])
-    @post_favorite.save
-    redirect_to post_path(params[:post_id]) 
+    @post = Post.find(params[:post_id])
+    favorite = current_user.favorites.create(post_id: @post.id)
+    favorite.save
+    # binding.pry
+    # redirect_to post_path(params[:post_id])  <=Ajaxを使用するためにここを削除
+    @favorite_users = @post.favorite_users
+    respond_to do |format|
+      format.html { redirect_to @post }
+      format.js # XHLリクエストが来たら、特定のjsを反応させる
+      # => default: app/views/favorites/create.js.erb
+    end
   end 
 
   def destroy
-    @post_favorite = Favorite.find_by(user_id: current_user.id, post_id: params[:post_id])
-    @post_favorite.destroy
-    redirect_to post_path(params[:post_id])
+    @post = Post.find(params[:post_id])
+    favorite = current_user.favorites.find_by(post_id: @post.id)
+    favorite.destroy
+    # redirect_to post_path(params[:post_id]) <=Ajaxを使用するためにここを削除
+    @favorite_users = @post.favorite_users
+    respond_to do |format|
+      format.html { redirect_to @post }
+      format.js 
+      # => default: app/views/favorites/destroy.js.erb
+    end
   end
 end

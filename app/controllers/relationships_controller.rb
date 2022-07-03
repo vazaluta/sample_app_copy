@@ -7,7 +7,7 @@ class RelationshipsController < ApplicationController
     current_user.follow(@user)
     respond_to do |format|
       format.html { redirect_to @user }
-      # format.js # XHLリクエストが来たら、特定のjsを反応させる
+      format.js # XHLリクエストが来たら、特定のjsを反応させる
       # => default: app/views/relationships/create.js.erb
     end
   end

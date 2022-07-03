@@ -115,7 +115,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-# favorite/unfovorite
+# favorite/unfavorite
   test "should favorite and unfavorite a user" do
     user = users(:michael)
     post = posts(:orange)

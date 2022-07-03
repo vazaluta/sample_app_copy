@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :correct_user,   only: :destroy
   
   def index
-    posts = Post.includes(:favorited_users).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size}
+    posts = Post.includes(:favorite_users).sort {|a,b| b.favorite_users.size <=> a.favorite_users.size}
     @posts = Kaminari.paginate_array(posts).page(params[:page]).per(10)
   end
 
@@ -11,6 +11,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments
     @comment = current_user.comments.new
+    @favorite_users = @post.favorite_users
+    # @favorite = current_user.favorites.new
+    # @favorited = current_user.favorites.find_by(post_id: @post.id)
+
   end
 
   def new

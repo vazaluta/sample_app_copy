@@ -22,22 +22,20 @@
 </div>
 
 <%# いいね機能 %>
-<% if current_user.already_favorited?(@post) %>
-  <%# @post => post.id %>
-  <%= link_to post_favorite_path(@post), class: "btn", method: :delete do %>
-    <i class="fa-solid fa-thumbs-up fa-3x"></i>
+<span id="favorite_icon_<%= @post.id %>">
+  <% unless current_user?(@user) %>
+    <% if @post.favorited?(current_user) %>
+      <%= render 'favorites/favorited_state', post: @post %>
+    <% else %>
+      <%= render 'favorites/unfavorited_state', post: @post %>
+    <% end %>
   <% end %>
-<% else %>
-  <%# default => method: :post => postリクエストを送る %>
-  <%= link_to post_favorites_path(@post), class: "btn", method: :post do %>
-    <i class="fa-regular fa-thumbs-up fa-3x"></i>  
-  <% end %>
-<% end %>
-<span class="middle-size"><%= @post.favorites.count %></span>
+</span>
+  <span id="favorite_count" class="middle-size"><%= @post.favorites.count %></span>
 <p class="margin-top">いいねしたユーザー</p>
-<% @post.favorited_users.each do |user| %>
-  <li><%= user.name %></li>
-<% end %>
+<ol id="favorite_user">
+  <%= render partial: 'favorites/favorite_user', favorite_users: @favorite_users %>
+</ol>
 
 <%# コメント機能 %>
 <p class="margin-top">コメントする</p>

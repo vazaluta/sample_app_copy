@@ -5,12 +5,10 @@ class Post < ApplicationRecord
 
   # favoritesメソッド: いいねをした人の
   has_many :favorites, dependent: :destroy
-  has_many :favorited_users, through: :favorites, source: :user
+  has_many :favorite_users, through: :favorites, source: :user
   # => @post.favorites.map(&:user)
 
   has_many :comments, dependent: :destroy
-  has_many :commented_users, through: :comments, source: :user
-
   
   default_scope -> { self.order(created_at: :desc) }    # order :順序
   

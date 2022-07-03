@@ -1,0 +1,3 @@
+$("#favorite_icon_<%= @post.id %>").html("<%= escape_javascript(render('favorites/unfavorited_state', post: @post)) %>");
+$("#favorite_count").html('<%= @post.favorites.count %>');
+$("#favorite_user").html('<%= escape_javascript(render('favorites/favorite_user', favorite_users: @favorite_users)) %>');

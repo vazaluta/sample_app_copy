@@ -11,10 +11,13 @@
 <div class="show-content">
   <% if current_user?(@post.user) %>
   <!--post => post_path-->
-    <%= link_to "delete", @post, method: :delete,
-                               data: { confirm: "You sure?" } %>
-  <%# 編集機能 %>
-  <%= link_to "edit", edit_post_path(@post) %>
+    <div class="link_to">
+      <%= link_to "delete", @post, method: :delete, data: { confirm: "You sure?" } %>
+    </div>
+    <%# 編集機能 %>
+    <div class="link_to">
+      <%= link_to "edit", edit_post_path(@post) %>
+    </div>
   <% end %>
 
   <h1> <%= @post.title %> </h1> 
@@ -32,7 +35,10 @@
   <% end %>
 </span>
   <span id="favorite_count" class="middle-size"><%= @post.favorites.count %></span>
-<p class="margin-top">いいねしたユーザー</p>
+<div class="link_to margin-top">
+  <%= link_to "いいねしたユーザー", post_favorites_path(@post) %>
+</div>
+
 <ol id="favorite_user">
   <%= render partial: 'favorites/favorite_user', favorite_users: @favorite_users %>
 </ol>

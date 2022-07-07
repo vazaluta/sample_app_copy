@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-<%# binding.pry  %>
-=======
->>>>>>> favorite-ajax
 <% @favorite_users.each do |favorite_user| %>
-  <div><%= favorite_user.name %></div>
+  <%= link_to gravatar_for(favorite_user, size: 30), favorite_user %>
+  <span class="user">
+    <%= favorite_user.name %>
+  </span>
 <% end %>

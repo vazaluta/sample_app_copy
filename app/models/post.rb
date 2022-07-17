@@ -9,7 +9,9 @@ class Post < ApplicationRecord
   # => @post.favorites.map(&:user)
 
   has_many :comments, dependent: :destroy
-  
+  has_many :comment_users, through: :comments, source: :user
+  # => @post.comments.map(&:user)
+
   default_scope -> { self.order(created_at: :desc) }    # order :順序
   
   validates :user_id, presence: true

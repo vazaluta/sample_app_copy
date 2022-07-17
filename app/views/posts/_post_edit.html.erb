@@ -1,0 +1,14 @@
+<% if current_user?(post.user) %>
+<!--post => post_path-->
+  <div class="link_to">
+    <%= link_to "delete", post, method: :delete, data: { confirm: "You sure?" } %>
+  </div>
+  <%# 編集機能 %>
+  <div class="link_to">
+    <%= link_to "edit", edit_post_path(post) %>
+  </div>
+<% elsif current_user.id == post.user_id %>
+  <div class="link_to">
+    <%= link_to "delete", post, method: :delete, data: { confirm: "You sure?" } %>
+  </div>
+<% end %>

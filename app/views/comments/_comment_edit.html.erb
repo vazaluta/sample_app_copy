@@ -1,0 +1,16 @@
+<%# comment delete or edit %>
+    <% if current_user?(c.user) %>
+      <div class="link_to">
+        <%= link_to "delete", post_comment_path(post, c), method: :delete, data: { confirm: "You sure?" } %>
+          <!--comment => comment_path-->
+      </div>
+      <div class="link_to">
+        <%= link_to "edit", edit_post_comment_path(post, c) %>
+      </div>
+    <%# login user が投稿者だった場合、削除のみ可能 %>
+    <% elsif current_user.id == post.user_id %>
+      <div class="link_to">
+        <%= link_to "delete", post_comment_path(post, c), method: :delete, data: { confirm: "You sure?" } %>
+          <!--comment => comment_path-->
+      </div>
+    <% end %>

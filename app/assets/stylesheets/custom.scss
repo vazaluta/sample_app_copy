@@ -142,7 +142,7 @@ aside {
 }
 
 .gravatar {
-  float: left;
+  // float: left;
   margin-right: 10px;
 }
 
@@ -334,6 +334,7 @@ span.image {
   font-size: x-large;
 }
 .favorite-user {
+  padding: 2px 10px;
   border-top: 1px solid #e8e8e8;
 }
 .comments {

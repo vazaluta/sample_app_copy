@@ -9,12 +9,9 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
     @comments = @post.comments
-    @comment = current_user.comments.new
     @favorite_users = @post.favorite_users
-    # @favorite = current_user.favorites.new
-    # @favorited = current_user.favorites.find_by(post_id: @post.id)
-
   end
 
   def new
@@ -66,7 +63,7 @@ class PostsController < ApplicationController
     # strong parameter
     def post_params
       self.params.require(:post).permit(:content, :title)
-      # params[:post][:content/:title] 
+      # params[:post][:content, :title] 
       # => post のデータの集合を渡すんだけど、其の中のcontentとtitleのみに限定して渡しますよ
     end
     

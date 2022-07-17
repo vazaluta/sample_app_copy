@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :posts do
     resource :favorites, only: [:show, :create, :destroy]
-    resource :comments, only: [:create, :destroy]
+    resources :comments, only: [:create, :edit, :update, :destroy]
   end
   resources :relationships,       only: [:create, :destroy]
 end

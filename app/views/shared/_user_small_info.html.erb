@@ -1,0 +1,7 @@
+<%= link_to gravatar_for(c.user, size: 30), c.user %>
+<span class="user">
+  <%= c.user.name %>
+</span>
+<span class="timestamp">
+  | Posted <%= time_ago_in_words(c.created_at) %> ago.
+</span>

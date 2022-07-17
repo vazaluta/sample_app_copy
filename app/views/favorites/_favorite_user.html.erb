@@ -1,6 +1,8 @@
 <% @favorite_users.each do |favorite_user| %>
-  <%= link_to gravatar_for(favorite_user, size: 30), favorite_user %>
-  <span class="user">
-    <%= favorite_user.name %>
-  </span>
+  <div class="favorite-user">
+    <%= link_to gravatar_for(favorite_user, size: 25), favorite_user %>
+    <span class="user">
+      <%= favorite_user.name %>
+    </span>
+  </div>
 <% end %>

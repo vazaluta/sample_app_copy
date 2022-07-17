@@ -1,0 +1,5 @@
+<%= form_with(model:[@post, @comment]) do |f| %>
+  <%= f.text_area :comment_content %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>
